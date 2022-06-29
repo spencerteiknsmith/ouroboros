@@ -1,0 +1,17 @@
+#This program will take a program and spit out an equivalent program,
+# just with no comments.
+#It will group multiple lines together into one line
+
+,8E4+*1? 8C*1?zzz #read, jump to end test | 'emit' - jump to later
+:84*\48* -?01?zzz #if space, ignore and jump back
+:86*\pzc -?01?zzz #if z, ignore and jump back
+:8\75*-? zzzzzzzz #if '#', do below, else jump to emit
+y,:8A*\A -?81?zzz #loop until newline, then jump to emit
+:88*\?zz 01-1?zzz #        ^ or eof (then exit)
+
+#'emit' code
+:8E2+*\A -?8E*1?z #if '\n', go to next line, else jump forward 2 lines
+:s:ts-8E 3+*\?zzz
+:te01?zz t01?zzzz #store the char on the other stack, emit, start over
+
+:82*\?            #if input is 0 (no input) end, else jump to tests

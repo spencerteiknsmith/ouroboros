@@ -1,0 +1,62 @@
+#this is what the result of the program needs to look like
+#78+1?e:5\?01-1?p{c929+*phars_to_c827**print}c61?
+#in the {chars to print}, some chars need to be handled specially:
+#  'c', 'p', ' ', '#', and newline
+#we'll put the needed program on the stack in reverse order
+#then dump it out at the end
+
+p?16c929+* #push the end onto the stack
+
+,          #read from stdin onto the stack
+
+:          #duplicate the read value
+246**      #the location of the next group of lines
+\929+*-?   #detect if 'c', if not then skip over this
+y          #if yes 'c' then yeet it
+827**      #and push a sequence to generate 'c' - ends with 'p'
+p*+929     #math to get ascii 'c' pushed into stack for outputting
+c929+*     #the output sequence for 'c' begins with 'c'
+52*1?      #return to the beginning of the read loop
+
+:          #all the same for 'p'
+98+5*
+\827**-?   #just change the test
+y
+827**
+p**728     #and the math
+c929+*
+52*1?
+
+:          #and again for ' '
+2345***
+\48*-?   #just change the test
+y
+827**
+p*84     #and the math
+c929+*
+52*1?
+
+:          #and again for '\n'
+48*1-5*
+\91+-?   #just change the test
+y
+827**
+p+19     #and the math
+c929+*
+52*1?
+
+:          #and again for '#'
+379**1+
+\75*-?   #just change the test
+y
+827**
+p*57     #and the math
+c929+*
+52*1?
+
+:52*\?     #loop back to reading until no input
+y          #then yeet the 0 from eof
+
+827**p?1-10?\5:e?1+87c    #push the beginning onto the stack
+
+e:92+2*25**1-\? #put all of stack to stdout
